@@ -22,10 +22,7 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ("title", "required_posts")
-
-    def required_posts(self, obj):
-        return "\n".join([post.title for post in obj.posts.all()])
+    list_display = ("title", )
 
 
 class PostAdmin(admin.ModelAdmin):
