@@ -61,4 +61,16 @@ class PostView(APIView):
         }, status=status.HTTP_200_OK)
 
     def post(self, request):
-        pass
+        post = SubjectPostSerializer(data=request.POST)
+
+        if post.is_valid():
+            post.save()
+
+            return Response({
+                "message": f"Post created"
+            }, status=status.HTTP_201_CREATED)
+
+        else:
+            return Response({
+                "message": "Error!"
+            }, status=status.HTTP_404_NOT_FOUND)
