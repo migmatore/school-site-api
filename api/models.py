@@ -36,23 +36,9 @@ class Test(models.Model):
         verbose_name_plural = "Тесты"
 
 
-class Subject(models.Model):
-    """Модель школьного предмета"""
-
-    title = models.TextField("Название предмета", max_length=100)
-
-    def __str__(self):
-        return f"{self.title}"
-
-    class Meta:
-        verbose_name = "Предмет"
-        verbose_name_plural = "Предметы"
-
-
 class Post(models.Model):
     """Модель поста"""
 
-    subject = models.ManyToManyField(Subject, verbose_name="Предмет", related_name="subject")
     title = models.TextField("Название поста", max_length=150)
     miniBody = models.TextField("Под заголовок", max_length=150)
     body = models.TextField("Содержание", max_length=700)
@@ -62,3 +48,17 @@ class Post(models.Model):
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
+
+
+class Subject(models.Model):
+    """Модель школьного предмета"""
+
+    title = models.TextField("Название предмета", max_length=100)
+    posts = models.ManyToManyField(Post, verbose_name="Посты", related_name="posts")
+
+    def __str__(self):
+        return f"{self.title}"
+
+    class Meta:
+        verbose_name = "Предмет"
+        verbose_name_plural = "Предметы"

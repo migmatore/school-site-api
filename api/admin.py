@@ -22,14 +22,14 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ("title", )
+    list_display = ("title", "required_posts")
+
+    def required_posts(self, obj):
+        return "\n".join([post.title for post in obj.post.all()])
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("post_subject", "title", "miniBody", "body", "author")
-
-    def post_subject(self, obj):
-        return "\n".join([subject.title for subject in obj.subject.all()])
+    list_display = ("title", "miniBody", "body", "author")
 
 
 admin.site.register(Test, TestAdmin)
