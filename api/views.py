@@ -44,7 +44,7 @@ class SubjectView(APIView):
 
         else:
             return Response({
-                "message": "Error"
+                "message": "Error!"
             }, status=status.HTTP_404_NOT_FOUND)
 
 
