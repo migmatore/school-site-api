@@ -33,18 +33,18 @@ class TestSerializer(serializers.ModelSerializer):
         fields = ("id", "creator", "testTitle", "questions")
 
 
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = ("title", "miniBody", "body", "author", "date")
-
-
 class SubjectSerializer(serializers.ModelSerializer):
-    posts = PostSerializer(many=True)
-
     class Meta:
         model = Subject
-        fields = ("id", "title", "posts")
+        fields = ("id", "title")
+
+
+class PostSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = ("subject", "title", "miniBody", "body", "author", "date")
 
 
 class SubjectPostSerializer(serializers.ModelSerializer):

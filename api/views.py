@@ -64,7 +64,7 @@ class PostView(APIView):
         post = PostPostSerializer(data=request.POST)
 
         if post.is_valid():
-            post.save_m2m()
+            post.save()
 
             return Response({
                 "message": f"Post created"
