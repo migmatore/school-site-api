@@ -31,3 +31,31 @@ class TestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
         fields = ("id", "creator", "testTitle", "questions")
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ("id", "title")
+
+
+class SubjectPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ("title",)
+
+
+class PostSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = ("subject", "title", "miniBody", "body", "author", "date")
+
+
+class PostPostSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = ("subject", "title", "miniBody", "body", "author")
