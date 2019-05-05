@@ -39,7 +39,7 @@ class SubjectView(APIView):
             subject.save()
 
             return Response({
-                "message": f"Subject created"
+                "message": "Subject created"
             }, status=status.HTTP_201_CREATED)
 
         else:
