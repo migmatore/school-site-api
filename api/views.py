@@ -61,10 +61,11 @@ class PostView(APIView):
         }, status=status.HTTP_200_OK)
 
     def post(self, request):
+        # subjectId = request.POST.subject.id
         post = PostPostSerializer(data=request.POST)
 
         if post.is_valid():
-            post.save()
+            post.save_m2m()
 
             return Response({
                 "message": f"Post created"

@@ -41,6 +41,9 @@ class Subject(models.Model):
 
     title = models.TextField("Название предмета", max_length=100)
 
+    def __str__(self):
+        return f"{self.title}"
+
     class Meta:
         verbose_name = "Предмет"
         verbose_name_plural = "Предметы"
