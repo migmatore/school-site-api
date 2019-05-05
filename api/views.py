@@ -61,7 +61,7 @@ class PostView(APIView):
         }, status=status.HTTP_200_OK)
 
     def post(self, request):
-        post = SubjectPostSerializer(data=request.POST)
+        post = PostPostSerializer(data=request.POST)
 
         if post.is_valid():
             post.save()
