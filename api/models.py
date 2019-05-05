@@ -45,6 +45,9 @@ class Post(models.Model):
     author = models.TextField("Автор", max_length=100)
     date = models.DateField("Дата создания", auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.title}"
+
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
@@ -55,9 +58,6 @@ class Subject(models.Model):
 
     title = models.TextField("Название предмета", max_length=100)
     posts = models.ManyToManyField(Post, verbose_name="Посты", related_name="posts")
-
-    def __str__(self):
-        return f"{self.title}"
 
     class Meta:
         verbose_name = "Предмет"
