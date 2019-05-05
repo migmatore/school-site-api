@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 
-from api.models import Test, Question, Answer
+from api.models import Test
 from api.serializers import TestSerializer, QuestionSerializer, AnswerSerializer
 
 
