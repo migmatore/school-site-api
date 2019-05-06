@@ -22,16 +22,19 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ("title", )
+    list_display = ("id", "title")
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "miniBody", "body", "author")
+    list_display = ("id", "subject_category", "title", "mini_body", "body", "author")
+
+    def subject_category(self, obj):
+        return "\n".join([category.title for category in obj.subject_category.all()])
 
 
 admin.site.register(Test, TestAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
 
-admin.site.register(Subject, SubjectAdmin)
+admin.site.register(SubjectCategory, SubjectAdmin)
 admin.site.register(Post, PostAdmin)

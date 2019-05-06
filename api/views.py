@@ -2,9 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 
-from api.models import Test, Post, Subject
-from api.serializers import TestSerializer, QuestionSerializer, AnswerSerializer, PostSerializer, PostPostSerializer, \
-    SubjectSerializer, SubjectPostSerializer
+from api.models import Test, Post, SubjectCategory
+from api.serializers import (
+    TestSerializer, PostSerializer, PostPostSerializer,
+    SubjectCategorySerializer, SubjectCategoryPostSerializer
+)
 
 
 class TestView(APIView):
@@ -20,20 +22,20 @@ class TestView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-class SubjectView(APIView):
+class SubjectCategoryView(APIView):
     permission_classes = [permissions.AllowAny, ]
 
     def get(self, request):
-        subjects = Subject.objects.all()
+        subjects = SubjectCategory.objects.all()
 
-        serializer = SubjectSerializer(subjects, many=True)
+        serializer = SubjectCategorySerializer(subjects, many=True)
 
         return Response({
             "data": serializer.data
         }, status=status.HTTP_200_OK)
 
     def post(self, request):
-        subject = SubjectPostSerializer(data=request.POST)
+        subject = SubjectCategoryPostSerializer(data=request.POST)
 
         if subject.is_valid():
             subject.save()
@@ -48,9 +50,11 @@ class SubjectView(APIView):
             }, status=status.HTTP_404_NOT_FOUND)
 
 
+# Base post view(getting all posts and create new)
 class PostView(APIView):
     permission_classes = [permissions.AllowAny, ]
 
+    # Get all posts
     def get(self, request):
         posts = Post.objects.all()
 
@@ -60,6 +64,7 @@ class PostView(APIView):
             "data": serializer.data
         }, status=status.HTTP_200_OK)
 
+    # Create post
     def post(self, request):
         post = PostPostSerializer(data=request.POST)
 
@@ -74,3 +79,27 @@ class PostView(APIView):
             return Response({
                 "message": "Error!"
             }, status=status.HTTP_404_NOT_FOUND)
+
+
+# Post detail view(getting a post by id and it's details)
+class PostDetailView(APIView):
+    permission_classes = [permissions.AllowAny, ]
+
+    def get(self, request, pk):
+        post = Post.objects.filter(id=pk)
+
+        serializer = PostSerializer(post, many=True)
+
+        return Response({
+            "data": serializer.data
+        }, status=status.HTTP_200_OK)
+
+
+# In Develop
+# TODO: implement post editing
+# Post edit view(editing post)
+class PostEditView(APIView):
+    permission_classes = [permissions.AllowAny, ]
+
+    def get(self, request, pk):
+        pass
