@@ -1,3 +1,6 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
@@ -25,6 +28,8 @@ class TestView(APIView):
 class SubjectCategoryView(APIView):
     permission_classes = [permissions.AllowAny, ]
 
+    @method_decorator(cache_page(60 * 60 * 2))
+    @method_decorator(vary_on_cookie)
     def get(self, request):
         subjects = SubjectCategory.objects.all()
 
@@ -103,3 +108,19 @@ class PostEditView(APIView):
 
     def get(self, request, pk):
         pass
+
+
+# Subject posts view(getting subject posts)
+class SubjectPostsView(APIView):
+    permission_classes = [permissions.AllowAny, ]
+
+    @method_decorator(cache_page(60 * 60 * 2))
+    @method_decorator(vary_on_cookie)
+    def get(self, request, pk):
+        posts = Post.objects.filter(subject_category=pk)
+
+        serializer = PostSerializer(posts, many=True)
+
+        return Response({
+            "data": serializer.data
+        }, status=status.HTTP_200_OK)
