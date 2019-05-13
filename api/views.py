@@ -93,7 +93,9 @@ class PostDetailView(APIView):
 
         serializer = PostSerializer(post, many=True)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({
+            "data": serializer.data
+        }, status=status.HTTP_200_OK)
 
 
 # In Develop
