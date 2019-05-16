@@ -21,7 +21,7 @@ class TestView(APIView):
         serializer = TestSerializer(tests, many=True)
 
         return Response({
-            "data": serializer.data
+            "response": serializer.data
         }, status=status.HTTP_200_OK)
 
 
@@ -36,7 +36,7 @@ class SubjectCategoryView(APIView):
         serializer = SubjectCategorySerializer(subjects, many=True)
 
         return Response({
-            "data": serializer.data
+            "response": serializer.data
         }, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -46,12 +46,12 @@ class SubjectCategoryView(APIView):
             subject.save()
 
             return Response({
-                "message": "Subject created"
+                "response": "Subject created"
             }, status=status.HTTP_201_CREATED)
 
         else:
             return Response({
-                "message": "Error!"
+                "response": "Error!"
             }, status=status.HTTP_404_NOT_FOUND)
 
 
@@ -66,7 +66,7 @@ class PostView(APIView):
         serializer = PostSerializer(posts, many=True)
 
         return Response({
-            "data": serializer.data
+            "response": serializer.data
         }, status=status.HTTP_200_OK)
 
     # Create post
@@ -77,12 +77,12 @@ class PostView(APIView):
             post.save()
 
             return Response({
-                "message": f"Post created"
+                "response": f"Post created"
             }, status=status.HTTP_201_CREATED)
 
         else:
             return Response({
-                "message": "Error!"
+                "response": "Error!"
             }, status=status.HTTP_404_NOT_FOUND)
 
 
@@ -96,7 +96,7 @@ class PostDetailView(APIView):
         serializer = PostSerializer(post, many=True)
 
         return Response({
-            "data": serializer.data
+            "response": serializer.data
         }, status=status.HTTP_200_OK)
 
 
@@ -122,5 +122,5 @@ class SubjectPostsView(APIView):
         serializer = PostSerializer(posts, many=True)
 
         return Response({
-            "data": serializer.data
+            "response": serializer.data
         }, status=status.HTTP_200_OK)
