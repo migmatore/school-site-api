@@ -28,8 +28,8 @@ class TestView(APIView):
 class SubjectCategoryView(APIView):
     permission_classes = [permissions.AllowAny, ]
 
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
+#     @method_decorator(cache_page(60 * 60 * 2))
+#     @method_decorator(vary_on_cookie)
     def get(self, request):
         subjects = SubjectCategory.objects.all()
 
@@ -114,8 +114,8 @@ class PostEditView(APIView):
 class SubjectPostsView(APIView):
     permission_classes = [permissions.AllowAny, ]
 
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
+#     @method_decorator(cache_page(60 * 60 * 2))
+#     @method_decorator(vary_on_cookie)
     def get(self, request, pk):
         posts = Post.objects.filter(subject_category=pk)
 
